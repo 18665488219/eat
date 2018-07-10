@@ -1,0 +1,27 @@
+.box{
+	margin: auto;
+	text-align: center;
+	margin-bottom: 100px;
+	margin-bottom: 50px;
+
+}
+.box a{
+	font-size: 30px;
+	color: #4FC08D;
+}
+.box p{
+	color: #999999;
+	font-size: 14px;
+
+}
+form{
+	/*width: 600px;*/
+	min-height: 200px;
+	border:1px solid #E0E0E0;
+	box-shadow: 4px 10px 24px #989898;
+	margin:auto;
+	padding: 10px;
+}
+button{
+	margin-top: 10px;
+}

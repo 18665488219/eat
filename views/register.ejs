@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="/css/bootstrap.css">
+<link rel="stylesheet" type="text/css" href="/css/style.css">
+	<title></title>
+</head>
+<body>
+
+<div class="container">
+<%- include("header") %>
+<h3>注册页面</h3>
+		<form method="post" action="/reg/reg" enctype="multipart/form-data">
+			<div class="form-group">
+				<label for="User" class="col-md-12">用户名</label>
+				<div class="col-md-9">
+					<input type="text" name="userName" id="User" placeholder="用户名" class="form-control">
+					<div class="popover fade right in" role="tooltip" id="nameErr" style="top: -8px; left: 830px; width:178px;">
+						<div class="arrow" style="top: 25%;"></div>
+						<h3 style="font-size:12px;color:red"><div class="popover-content">用户名不可用，请重新输入</div></h3>
+					</div>
+
+					 <div class="popover fade right in" role="tooltip" id="nameErr_two" style="top: -8px; left: 830px; width:200px;">
+						<div class="arrow" style="top: 50%;"></div>
+						<h3 style="font-size:12px;color:red"><div class="popover-content">用户名不能为空</div></h3>
+					</div> 
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="password" class="col-md-12">密码</label>
+				<div class="col-md-9 ">
+					<input type="password" name="passw" id="password" placeholder="密码" class="form-control">
+					<div class="popover fade right in" role="tooltip" id="passwErr" style="top: -18px; left: 830px; width:178px;">
+						<div class="arrow" style="top: 25%;"></div>
+						<h3 style="font-size:12px;color:red"><div class="popover-content">请输入6-20位字符，不能使用空格</div></h3>
+					</div>
+
+					 <div class="popover fade right in" role="tooltip" id="passwErr_two" style="top: -18px; left: 830px; width:200px;">
+						<div class="arrow" style="top: 50%;"></div>
+						<h3 style="font-size:12px;color:red"><div class="popover-content">密码不能为空</div></h3>
+					</div> 
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="repeat_password" class="col-md-12">重复密码</label>
+				<div class="col-md-9">
+					<input type="password" name="r_passw" id="repeat_password" placeholder="重复密码" class="form-control">
+					<div class="popover fade right in" role="tooltip" id="re_passwErr" style="top: -28px; left: 830px; width:178px;">
+						<div class="arrow" style="top: 25%;"></div>
+						<h3 style="font-size:12px;color:red"><div class="popover-content">两次密码不一致</div></h3>
+					</div>
+
+					 <div class="popover fade right in" role="tooltip" id="re_passwErr_two" style="top: -28px; left: 830px; width:200px;">
+						<div class="arrow" style="top: 50%;"></div>
+						<h3 style="font-size:12px;color:red"><div class="popover-content">密码不能为空</div></h3>
+					</div> 
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="sex" class="col-md-12">性别</label>
+				<div class="col-md-12">
+					<select id="sex" class="form-control" name="sex">
+						<option>男</option>
+						<option>女</option>
+						<option>保密</option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="file" class="col-md-12">头像</label>
+				<div class="col-md-12">
+					<input type="file" id="file" name="file">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="personal_profile" class="col-md-12">个人简介</label>
+				<div class="col-md-12">
+					<textarea class="form-control" rows="10" name="personal_profile" ></textarea>
+				</div>
+			</div>
+			<div class="col-md-12">
+			 	<button type="button" class="btn btn-success btn-block btn_reg" style="margin-top: 10px;">注册</button>
+			 </div>
+			
+		</form>
+</div>
+<script src="/js/jquery.min.js"></script>
+<script src="/js/bootstrap.js"></script>
+<script type="text/javascript">
+$(".nav li").eq(1).addClass("active");
+var chekn=false;
+$("#User").blur(function(){  //失去焦点之后，判断用户名是否为空
+	var uname=$(this).val();
+	console.log(uname);
+	if(uname =='' || uname ==' '){
+		$("#nameErr_two").show();
+	}else{
+		$("#nameErr_two").hide();
+	}
+	$.ajax({
+		type:'get',
+		url:'/reg/checkname',
+		data:'userName='+uname,  //data：上传的数据
+		success:function(data){
+			//alert(data)
+			// data = ok 表示可以注册
+			// data = no 表示不可以注册
+			if(data =='no'){
+				$("#nameErr").show();
+				$("#User").focus();
+			}
+			console.log(data);
+			if(data =='ok'){
+				chekn=true;
+				$("#nameErr").hide();
+			}
+		}
+
+	})
+
+})
+$(".btn_reg").click(function(){
+	$('form').submit();
+})
+
+$("#password").blur(function(){  //验证密码是否为空或者是不是少于六位数
+	var passw=$(this).val();
+	if(passw !== ""){   //验证码不为空时，就进入正则验证是不是六位数密码
+		var reg=/^([0-9A-Za-z]{6,})$/g;
+		// console.log('reg=',reg.test(passw),passw);
+		if(reg.test(passw)){   //如果密码正确则提示隐藏起来，否则反之
+			$("#passwErr").hide();
+			$("#passwErr_two").hide();
+		}else{
+			$("#passwErr").show();
+		}
+	}else{
+		$("#passwErr_two").show();
+	}
+})
+
+$("#repeat_password").blur(function(){  //验证重复密码是否与上一次输入的密码一致
+	var re_passw=$(this).val();
+	if(re_passw !== ""){  //验证密码的val是否不等于空，如不等于空，则提示隐藏，否则显示
+		$("#re_passwErr_two").hide();
+		
+		if(re_passw === $("#password").val()){ //验证原密码和重复密码是否一致，如不一致，则提示隐藏，否则显示
+			$("#re_passwErr").hide();
+		}else{
+			$("#re_passwErr").show();
+		}
+	}else{
+		$("#re_passwErr_two").show();
+	}
+})
+</script>
+</body>
+</html>

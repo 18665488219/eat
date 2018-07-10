@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+	<title></title>
+</head>
+<body>
+<div class="box">
+	<nav class="navbar">
+		<div class="navbar-header">
+			<button class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+				<span class="glyphicon glyphicon-list"></span>
+			</button>
+		</div>
+		<div class="collapse navbar-collapse pull-right" id="bs-example-navbar-collapse-1">
+					<ul class="nav navbar-nav nav-center nav-active">
+						<% if(locals.user){ %>
+							<li><a href="/shou/<%= locals.user._id %>" style="font-size: 14px;color: #000"><%= locals.user.userName %></a></li>
+							<li><a href="/Pls_article" style="font-size: 14px;color: #000"">发表文章</a></li>
+							<li><a href="/exit" style="font-size: 14px;color: #000"">退出</a></li>
+						<% } else{ %>
+						<li><a href="/login" style="font-size: 14px;color: #000">登录</a></li>
+						<li><a href="/reg" style="font-size: 14px;color: #000">注册</a></li>
+						<% } %>
+					</ul>
+				</div>
+	</nav>
+		<a href="/">v-blog</a>
+		<p>my first blog</p>
+	</div>
+</body>
+</html>

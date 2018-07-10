@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="/css/bootstrap.css">
+<link rel="stylesheet" type="text/css" href="/css/details_page.css">
+	<title></title>
+	<style>
+	img{
+		width: 60px;
+	}
+	</style>
+</head>
+<body>
+
+<div class="container">
+	<%- include("header") %>
+	<h3>文章发表详情页</h3>
+
+		<div class="row">
+			<div class="col-md-1">
+				<a href="#">
+					<img src="/img/<%= details.author.file %>">
+				</a>
+			</div>
+			<div class="col-md-10 col_box">
+				<h3><%= details.title %></h3>
+				<div class="pr">
+					<p><%= details.content %></p>
+				</div>
+				<div class="bottom">
+					<span class="bottom_one"><%= details.time %></span>
+					<span id="liuy">留言(<%= details.leave %>)</span>
+					<span id="browse">浏览(<%= details.pv %>)</span>
+				</div>
+			</div>
+		</div>
+
+</div>
+
+<div class="container">
+<% if(locals.user){ %>
+	<form method="post" action="/Pls_article/savemsg">
+	<!-- m_id是author的id用户 -->
+		<input type="hidden" name="m_id" value="<%= locals.user._id %>">  
+		<input type="hidden" name="d_id" value="<%= details._id %>">
+		<div class="row">
+			<div class="col-md-1"></div>
+			<div class="col-md-10 col_box col_border">
+				<h3>留言</h3>
+
+				<% for(var i=0; i<msgs.length; i++){ %>
+				<div class="col-md-10 ">
+					<h4>
+					<img src="/img/<%= msgs[i].author.file %>" style="width: 30px;"/>
+						<a href="/shou/<%= msgs[i].author._id %>" class="msg_name">
+						<%= msgs[i].author.userName %>
+						</a>
+						<span class="bottom_one" style="font-size: 12px;color: #999;"><%= msgs[i].time %></span>
+
+						<% if(locals.user._id == msgs[i].author._id){ %>
+						<!-- 这是当用户的id跟留言的作者的id相等时，就执行下面的步骤 -->
+						<a href="javascript:;"  class="msg_del" style="font-size: 12px;color: #999; float: right;" onclick="delmsg('<%= msgs[i]._id %>',this)">删除
+						</a>
+						<% } %>
+
+					</h4>
+					<div class="pr">
+						<p><%= msgs[i].content %></p>
+					</div>
+					
+				</div>
+				<% } %>
+
+
+				<textarea class="form-control" rows="10" name="msg"></textarea>
+				<input type="submit" class="btn btn-success" id="leave" value="提交留言" style="margin-top: 10px;">
+		    </div>
+		</div>
+	</form>
+<% } %>
+
+</div>
+
+<script src="/js/jquery.min.js"></script>
+<script src="/js/bootstrap.js"></script>
+<script type="text/javascript">
+  $(".nav li").eq(0).addClass("active");
+  function delmsg(mid,_this){
+  	$.ajax({
+  		url:'/Pls_article/delmsg',
+  		type:'get',
+  		data:{mid:mid},
+  		success:function(data){
+  			if(data==='0'){
+  				$(_this).parent().parent().remove();   //_this：点击的a标签移除掉
+  				$("#liuy").val()-1;
+  			}
+  			
+  			
+  		}
+  	})
+
+  }
+
+  // var leave=$("#leave"),
+  // 	  // liuy=$("#liuy"),
+  // 	  browse=$("#browse");
+  // browse.click=function(){
+  // 	leave.val()
+  // }
+</script>
+</body>
+</html>

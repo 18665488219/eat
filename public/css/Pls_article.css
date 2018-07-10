@@ -1,0 +1,25 @@
+.box{
+	margin: auto;
+	text-align: center;
+	margin-bottom: 100px;
+	margin-bottom: 50px;
+
+	}
+.box a{
+	font-size: 30px;
+	color: #4FC08D;
+}
+.box p{
+	color: #999999;
+	font-size: 14px;
+}
+.col_active{
+	width: 600px;
+	min-height: 100px;
+	border:1px solid #E0E0E0;
+	box-shadow: 4px 10px 24px #989898;
+	margin: auto;
+	margin-bottom: 10px;
+	padding: 10px;
+	box-sizing: border-box;
+}

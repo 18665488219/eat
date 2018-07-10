@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="/css/bootstrap.css">
+<link rel="stylesheet" type="text/css" href="/css/Pls_article.css">
+	<title></title>
+</head>
+<body>
+
+<div class="container">
+	<%- include("header") %>
+		<form method="post" action="/Pls_article/save">
+			<input type="hidden" name="_id" value="<%= locals.user._id %>">  
+			<!-- 隐藏的input标签，用来放id -->
+			
+			<div class="form-group">
+				<div class="col-md-1">
+					<img src="/img/<%= locals.user.file %>" style="width: 60px;">
+				</div>
+			</div>
+			
+			<div class="form-group">
+				<div class="col-md-10 col_active">
+					<label for="title">标题：</label>
+					<input type="text" name="title" id="title" placeholder="标题" class="form-control">
+				
+					<label for="content">内容：</label>
+					<textarea class="form-control" rows="15" name="content"></textarea>
+					<button type="submit" class="btn btn-success" style="margin-top: 10px;">发布</button>
+				</div>
+			</div>
+
+		</form>
+</div>
+<script src="/js/jquery.min.js"></script>
+<script src="/js/bootstrap.js"></script>
+<script type="text/javascript">
+  $(".nav li").eq(1).addClass("active");
+  
+</script>
+</body>
+</html>

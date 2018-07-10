@@ -1,0 +1,42 @@
+.box{
+	margin: auto;
+	text-align: center;
+	margin-bottom: 100px;
+	margin-bottom: 50px;
+
+	}
+.box a{
+	font-size: 30px;
+	color: #4FC08D;
+}
+.box p{
+	color: #999999;
+	font-size: 14px;
+}
+form{
+	/*width: 600px;*/
+	min-height: 600px;
+	border:1px solid #E0E0E0;
+	box-shadow: 4px 10px 24px #989898;
+	margin:auto;
+	padding: 10px;
+}
+button{
+	margin-top: 10px;
+}
+.navbar{
+	float: right;
+}
+.navbar-nav > li > a:hover{
+	color: #e67e22;
+	font-size: 14px;
+}
+.nav-active .active{
+	background-color: #989898;
+}
+
+@media (max-width: 768px){
+.navbar-nav > li {
+	width: 100%;
+	}
+}

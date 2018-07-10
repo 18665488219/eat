@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="/css/bootstrap.css">
+<link rel="stylesheet" type="text/css" href="/css/shouye.css">
+	<title></title>
+	<style>
+	img{
+		width: 60px;
+	}
+	</style>
+</head>
+<body>
+<%- include("header") %>
+<div class="container">
+<h3>首页</h3>
+	<% for(var i=0; i <as.length; i++){ %>
+		<div class="row">
+			<div class="col-md-1">
+			<a href="/shou/<%= locals.user %>">
+				<img src="/img/<%= as[i].author.file%>">
+			</a>
+			</div>
+			<div class="col-md-11 col_box">
+				<h3>
+					<a href="/info/<%= as[i]._id %>"><%= as[i].title %></a>
+				</h3>
+				<div class="pr">
+					<p><%= as[i].content %></p>
+				</div>
+				<div class="bottom">
+					<span class="bottom_one"><%= as[i].time %></span>
+
+					<% if(locals.user._id == as[i].author._id){ %>
+					<!-- 当用户的id跟作者的id相等时，就执行下面的步骤 -->
+					<div class="btn-group" style="float: right;">
+						<button class="btn dropdown-toggle" data-toggle="dropdown">
+							<span class="caret"></span>
+						</button>
+							<ul class="dropdown-menu">
+								<li><a href="/Pls_article/article_update/<%= as[i]._id %>">编辑</a></li>
+								<li><a href="javascript:;" onclick="del('<%= as[i]._id %>',this)">删除</a></li>
+							</ul>
+					</div>
+					<% } %>
+
+
+					<span>留言(<%= as[i].leave %>)</span>
+					<span>浏览(<%= as[i].pv %>)</span>
+				</div>
+			</div>
+	</div>
+	<% } %>
+</div>
+<script src="/js/jquery.min.js"></script>
+<script src="/js/bootstrap.js"></script>
+<script type="text/javascript">
+function del(d_id,_this){  //用ajax做首页登录状态时的删除事件
+  	$.ajax({
+  		url:'/deld',
+  		type:'get',
+  		data:{d_id:d_id},
+  		success:function(data){
+  			if(data ==='0'){
+  				$(_this).closest('.row').remove();   //_this：点击的a标签移除掉
+  				
+  			}
+  			
+  			
+  		}
+  	})
+
+  }
+</script>
+</body>
+</html>

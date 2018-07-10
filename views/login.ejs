@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="/css/bootstrap.css">
+<link rel="stylesheet" type="text/css" href="/css/loginstyle.css">
+	<title></title>
+</head>
+<body>
+
+<div class="container">
+	<%- include("header") %>
+<h3>登录页面</h3>
+		<form method="post" action="/login/check">
+			<div class="form-group">
+				<label for="User" class="col-md-12">用户名</label>
+				<div class="col-md-12">
+					<input type="text" name="userName" id="User" placeholder="用户名" class="form-control">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="password" class="col-md-12">密码</label>
+				<div class="col-md-12">
+					<input type="password" name="passw" id="password" placeholder="密码" class="form-control">
+				</div>
+			</div>
+			<div class="col-md-12">
+			 	<button type="submit" class="btn btn-success btn-block">登录</button>
+			 </div>
+			
+		</form>
+</div>
+<script src="/js/jquery.min.js"></script>
+<script src="/js/bootstrap.js"></script>
+<script type="text/javascript">
+$(".nav li").eq(0).addClass("active");
+  
+</script>
+</body>
+</html>
